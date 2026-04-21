@@ -21,12 +21,17 @@ namespace GildedRoseKata.Domain.Inventory.Services
 
         public ItemStateService(IOptions<ItemSettings> itemSettings)
         {
-            _itemSettings = itemSettings.Value; // TODO: Need to make sure this is there in the main program.
+            _itemSettings = itemSettings.Value; // TODO: Need to validate this is there in the main program.
         }
 
         public void DecreaseSellIn(Item item)
         {
             item.SellIn--;
+
+            if (item.SellIn < 0)
+            {
+                item.SellIn = 0;
+            }
         }
 
         public void DecreaseQuality(Item item, int amount = 1)

@@ -62,10 +62,11 @@ public class Program
 
         builder.Services.AddTransient<GildedRose>();
 
-        ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
-        GildedRose app = serviceProvider.GetRequiredService<GildedRose>();
+        using IHost host = builder.Build();
 
-        int days = 2;
+        GildedRose app = host.Services.GetRequiredService<GildedRose>();
+
+        int days = 11;
         if (args.Length > 0)
         {
             // KRB: Doing this because the original code didn't handle the potential that the arg wasn't a number. The utility class allows for other methods to be added in future.
