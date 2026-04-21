@@ -26,8 +26,9 @@ public class GildedRose
 
             for (int dayIndex = 0; dayIndex < days; dayIndex++)
             {
+                Console.WriteLine("");
                 Console.WriteLine($"-------- day {dayIndex} --------");
-                Console.WriteLine("name, sellIn, quality");
+                Console.WriteLine("Name,    SellIn,    Quality");
 
                 // KRB: Refactored into a foreach to improve readability as it's referencing property values.
                 // KRB: Bringing the update method call into here also prevents creating an additional item loop in the original update method.
@@ -58,7 +59,7 @@ public class GildedRose
     // KRB: Created a dedicated method for this because I can see it being used often and also may want to change the way it's displayed.
     public void PrintItemDetails(Item item)
     {
-        Console.WriteLine($"{item.Name}, {item.SellIn}, {item.Quality}");
+        Console.WriteLine($"{item.Name},    {item.SellIn},    {item.Quality}");
     }
 
     // KRB: Later it might be worth pulling this out into a dedicated service class but for now I think it's fine as we're only outputting to console.

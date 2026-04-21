@@ -66,7 +66,7 @@ public class Program
 
         GildedRose app = host.Services.GetRequiredService<GildedRose>();
 
-        int days = 11;
+        int days = 2;
         if (args.Length > 0)
         {
             // KRB: Doing this because the original code didn't handle the potential that the arg wasn't a number. The utility class allows for other methods to be added in future.

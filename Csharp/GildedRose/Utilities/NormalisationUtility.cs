@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GildedRoseKata.Utilities
 {
+    // KRB: I've added this as a utility as it could be extended to add other formatting capabilities when the time comes. It cleans up the main code.
     public class NormalisationUtility
     {
         public static int NumberOrDefault(string input, int defaultValue)
@@ -18,11 +19,6 @@ namespace GildedRoseKata.Utilities
             {
                 return defaultValue;
             }
-        }
-
-        public static string NegativeToNever(int numericValue)
-        {
-            return numericValue < 0 ? "Never" : numericValue.ToString();
         }
     }
 }
