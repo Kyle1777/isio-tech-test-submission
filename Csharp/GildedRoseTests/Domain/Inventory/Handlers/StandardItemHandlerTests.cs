@@ -109,5 +109,56 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
 
             Assert.Equal(0, item.Quality);
         }
+
+        [Fact]
+        public void UpdateItemProperties_EnsureQualityIsWithinMax()
+        {
+            Item item = new StandardItem
+            {
+                Name = "Legendary Item",
+                SellIn = 34,
+                Quality = 49
+            };
+
+            IOptions<ItemSettings> itemSettings = Options.Create(new ItemSettings
+            {
+                DefaultQualityIncrement = 1,
+                MaxQuality = 40
+            });
+
+            ItemStateService itemStateService = new ItemStateService(itemSettings);
+
+            StandardItemHandler handler = new StandardItemHandler(itemStateService, itemSettings);
+
+            handler.UpdateItemProperties(item);
+
+            Assert.Equal(40, item.Quality);
+        }
+
+        // KRB: Handle edge cases where the quality has values outside the range before starting the program.
+        [Fact]
+        public void UpdateItemProperties_EnsureQualityIsWithinMin()
+        {
+            Item item = new StandardItem
+            {
+                Name = "Legendary Item",
+                SellIn = 34,
+                Quality = -30
+            };
+
+            IOptions<ItemSettings> itemSettings = Options.Create(new ItemSettings
+            {
+                DefaultQualityIncrement = 1,
+                MaxQuality = 40
+            });
+
+            ItemStateService itemStateService = new ItemStateService(itemSettings);
+
+            StandardItemHandler handler = new StandardItemHandler(itemStateService, itemSettings);
+
+            handler.UpdateItemProperties(item);
+
+            Assert.Equal(0, item.Quality);
+        }
     }
 }
