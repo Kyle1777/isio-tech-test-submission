@@ -21,7 +21,7 @@ namespace GildedRoseKata.Domain.Inventory.Services
 
         public ItemStateService(IOptions<ItemSettings> itemSettings)
         {
-            _itemSettings = itemSettings.Value; // TODO: Need to make sure this is error handled in the main program.
+            _itemSettings = itemSettings.Value; // TODO: Need to make sure this is there in the main program.
         }
 
         public void DecreaseSellIn(Item item)

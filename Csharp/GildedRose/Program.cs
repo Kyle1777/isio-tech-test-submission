@@ -43,9 +43,8 @@ public class Program
                 Name = "Backstage passes to a TAFKAL80ETC concert",
                 SellIn = 5,
                 Quality = 49
-            }
-            // TODO:This conjured item does not work properly yet
-            //new ConjuredItem {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
+            },
+            new ConjuredItem {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
         };
 
         builder.Services.AddSingleton(items);
@@ -54,10 +53,11 @@ public class Program
 
         builder.Services.AddScoped<ItemStateService>();
 
-        // KRB: Registering all of the calculator implementations here so the resolver can be extended easily in future by adding new implementation classes.
+        // KRB: Registering all of the handler implementations here so the resolver can be extended easily in future by adding new implementation classes.
         builder.Services.AddScoped<IItemHandler, LegendaryItemHandler>();
         builder.Services.AddScoped<IItemHandler, MaturableItemHandler>();
         builder.Services.AddScoped<IItemHandler, BackstagePassItemHandler>();
+        builder.Services.AddScoped<IItemHandler, ConjuredItemHandler>();
         builder.Services.AddScoped<IItemHandler, StandardItemHandler>();
 
         builder.Services.AddTransient<GildedRose>();

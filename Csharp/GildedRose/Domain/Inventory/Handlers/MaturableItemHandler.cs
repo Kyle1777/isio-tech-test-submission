@@ -13,7 +13,7 @@ namespace GildedRoseKata.Domain.Inventory.Handlers
     {
         public Type SupportedType { get; set; } = typeof(MaturableItem);
 
-        // KRB: Even though this is shared logic, I'm not going set up inheritance yet because of overcomplicating things for the scale of the app.
+        // KRB: Even though this is shared logic, I'm not going set up inheritance because of overcomplicating things for the scale of the app. This can be done later as it grows.
         private readonly ItemStateService _itemStateService;
 
         public MaturableItemHandler(ItemStateService itemStateService)

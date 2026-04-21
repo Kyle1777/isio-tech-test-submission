@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace GildedRoseKata.Domain.Inventory.Handlers
 {
-    public class StandardItemHandler : IItemHandler
+    public class ConjuredItemHandler : IItemHandler
     {
-        public Type SupportedType { get; set; } = typeof(StandardItem);
+        public Type SupportedType { get; set; } = typeof(ConjuredItem);
 
         private readonly ItemStateService _itemStateService;
         private readonly ItemSettings _itemSettings;
 
-        public StandardItemHandler(ItemStateService itemStateService, IOptions<ItemSettings> itemSettings) 
+        public ConjuredItemHandler(ItemStateService itemStateService, IOptions<ItemSettings> itemSettings)
         {
             _itemStateService = itemStateService;
             _itemSettings = itemSettings.Value;
@@ -29,7 +29,7 @@ namespace GildedRoseKata.Domain.Inventory.Handlers
 
             int degradeAmount = _itemSettings.DefaultQualityIncrement;
 
-            degradeAmount = _itemStateService.HasSellByPassed(item) ? degradeAmount * 2 : degradeAmount;
+            degradeAmount = _itemStateService.HasSellByPassed(item) ? degradeAmount * 4 : degradeAmount * 2;
 
             _itemStateService.DecreaseQuality(item, degradeAmount);
         }
