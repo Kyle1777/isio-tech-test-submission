@@ -24,6 +24,19 @@ namespace GildedRoseKata.Domain.Inventory.Services
             _itemSettings = itemSettings.Value; // TODO: Need to validate this is there in the main program.
         }
 
+        public void ConstrainQualityBetweenMinMax(Item item)
+        {
+            if (item.Quality < 0)
+            {
+                item.Quality = 0;
+            }
+
+            if (item.Quality > _itemSettings.MaxQuality)
+            {
+                item.Quality = _itemSettings.MaxQuality;
+            }
+        }
+
         public void DecreaseSellIn(Item item)
         {
             item.SellIn--;

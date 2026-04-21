@@ -23,10 +23,12 @@ namespace GildedRoseKata.Domain.Inventory.Handlers
 
         public void UpdateItemProperties(Item item)
         {
-            // KRB: Only need to increase the quality as per the requirements.
-            _itemStateService.DecreaseSellIn(item);
+            _itemStateService.ConstrainQualityBetweenMinMax(item);
 
+            // KRB: Only need to increase the quality as per the requirements.
             _itemStateService.IncreaseQuality(item);
+
+            _itemStateService.DecreaseSellIn(item);
         }
     }
 }

@@ -25,13 +25,15 @@ namespace GildedRoseKata.Domain.Inventory.Handlers
 
         public void UpdateItemProperties(Item item)
         {
-            _itemStateService.DecreaseSellIn(item);
+            _itemStateService.ConstrainQualityBetweenMinMax(item);
 
             int degradeAmount = _itemSettings.DefaultQualityIncrement;
 
             degradeAmount = _itemStateService.HasSellByPassed(item) ? degradeAmount * 4 : degradeAmount * 2;
 
             _itemStateService.DecreaseQuality(item, degradeAmount);
+
+            _itemStateService.DecreaseSellIn(item);
         }
     }
 }

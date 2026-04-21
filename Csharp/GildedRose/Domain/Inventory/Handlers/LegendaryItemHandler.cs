@@ -28,8 +28,9 @@ namespace GildedRoseKata.Domain.Inventory.Handlers
             // KRB: EG: Where the SellIn date is currently 0 instead of -1 for the legendary item.
             // KRB: That being said, as it's a small program I don't think it's too bad to just set them here.
 
+            _itemStateService.ConstrainQualityBetweenMinMax(item);
+
             item.SellIn = -1;
-            _itemStateService.IncreaseQuality(item, 0); // KRB: Runs the validation to ensure quality is within range.
         }
     }
 }

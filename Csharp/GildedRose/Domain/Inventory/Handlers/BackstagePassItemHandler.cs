@@ -26,16 +26,20 @@ namespace GildedRoseKata.Domain.Inventory.Handlers
         // KRB: I try to avoid nesting where possible to make it easier to read. This also means we're not running more conditions than necessary.
         public void UpdateItemProperties(Item item)
         {
-            _itemStateService.DecreaseSellIn(item); // TODO: Maybe this should run after everything. Recheck original loop.
+            _itemStateService.ConstrainQualityBetweenMinMax(item);
 
             if (_itemStateService.HasSellByPassed(item))
             {
                 item.Quality = 0;
 
+                _itemStateService.DecreaseSellIn(item);
+
                 return;
             }
 
             _itemStateService.IncreaseQuality(item, CalculateQualityIncrement(item));
+
+            _itemStateService.DecreaseSellIn(item);
         }
 
         private int CalculateQualityIncrement(Item item)

@@ -65,7 +65,7 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
             Item item = new StandardItem
             {
                 Name = "Standard Item",
-                SellIn = 0,
+                SellIn = -1,
                 Quality = 10
             };
 
@@ -82,6 +82,32 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
             handler.UpdateItemProperties(item);
 
             Assert.Equal(8, item.Quality);
+        }
+
+        // KRB: A boundary case because the requirements state "AFTER" the sell by date and 0 would be on the sell by date.
+        [Fact]
+        public void UpdateItemProperties_DecreaseQualityBy1OnSellByDate()
+        {
+            Item item = new StandardItem
+            {
+                Name = "Standard Item",
+                SellIn = 0,
+                Quality = 10
+            };
+
+            IOptions<ItemSettings> itemSettings = Options.Create(new ItemSettings
+            {
+                DefaultQualityIncrement = 1,
+                MaxQuality = 40
+            });
+
+            ItemStateService itemStateService = new ItemStateService(itemSettings);
+
+            StandardItemHandler handler = new StandardItemHandler(itemStateService, itemSettings);
+
+            handler.UpdateItemProperties(item);
+
+            Assert.Equal(9, item.Quality);
         }
 
         [Fact]
@@ -115,7 +141,7 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
         {
             Item item = new StandardItem
             {
-                Name = "Legendary Item",
+                Name = "Standard Item",
                 SellIn = 34,
                 Quality = 49
             };
@@ -132,7 +158,7 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
 
             handler.UpdateItemProperties(item);
 
-            Assert.Equal(40, item.Quality);
+            Assert.Equal(39, item.Quality); // KRB: It would be 39 because the quality would drop by 1 as if it started on 40.
         }
 
         // KRB: Handle edge cases where the quality has values outside the range before starting the program.
@@ -141,7 +167,7 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
         {
             Item item = new StandardItem
             {
-                Name = "Legendary Item",
+                Name = "Standard Item",
                 SellIn = 34,
                 Quality = -30
             };

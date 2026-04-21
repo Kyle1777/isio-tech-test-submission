@@ -11,7 +11,7 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
         [Fact]
         public void UpdateItemProperties_DecreaseSellInBy1()
         {
-            Item item = new StandardItem
+            Item item = new MaturableItem
             {
                 Name = "Maturable Item",
                 SellIn = 10,
@@ -36,7 +36,7 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
         [Fact]
         public void UpdateItemProperties_IncreasesQualityBy1()
         {
-            Item item = new StandardItem
+            Item item = new MaturableItem
             {
                 Name = "Maturable Item",
                 SellIn = 5,
@@ -61,7 +61,7 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
         [Fact]
         public void UpdateItemProperties_DoesNotIncreaseQualityBeyondMaxValue()
         {
-            Item item = new StandardItem
+            Item item = new MaturableItem
             {
                 Name = "Maturable Item",
                 SellIn = 5,
@@ -86,9 +86,9 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
         [Fact]
         public void UpdateItemProperties_EnsureQualityIsWithinMax()
         {
-            Item item = new StandardItem
+            Item item = new MaturableItem
             {
-                Name = "Legendary Item",
+                Name = "Maturable Item",
                 SellIn = 34,
                 Quality = 49
             };
@@ -105,16 +105,16 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
 
             handler.UpdateItemProperties(item);
 
-            Assert.Equal(40, item.Quality);
+            Assert.Equal(40, item.Quality); // KRB: Would be the max value because it only increases with age.
         }
 
         // KRB: Handle edge cases where the quality has values outside the range before starting the program.
         [Fact]
         public void UpdateItemProperties_EnsureQualityIsWithinMin()
         {
-            Item item = new StandardItem
+            Item item = new MaturableItem
             {
-                Name = "Legendary Item",
+                Name = "Maturable Item",
                 SellIn = 34,
                 Quality = -30
             };
@@ -131,7 +131,7 @@ namespace GildedRoseTests.Domain.Inventory.Handlers
 
             handler.UpdateItemProperties(item);
 
-            Assert.Equal(0, item.Quality);
+            Assert.Equal(1, item.Quality);
         }
     }
 }
