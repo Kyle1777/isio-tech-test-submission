@@ -1,0 +1,50 @@
+Hi, this was an interesting task!
+I've added comments into the code to explain my reasoning for various decisions (especially efficiency Vs readability trade offs), which may be clearer.
+
+However, to explain my thinking on a more general overview this is where I'm coming from:
+
+A major issue with the original code was the way the update function had lots of nested conditions and hard coded values.
+This meant that to change the logic for any specific item, you had to change the code for the update function which is a violation of the open closed principle and also makes it difficult to change without breaking things.
+The if statements being so nested also made it very difficult to read.
+
+In the requirements, I noticed that each of the "items" were actually exactly the same but their logic was different, so they were more like item types despite the name of some.
+
+I wanted to get away from the hardcoded names too, so I didn't want to have to check for the name of the item in the code to determine what logic to run.
+The requirements said that I couldn't modify the item class or properties but it didn't say anything about extending it, so I thought it would be better to have a separate class for each item type.
+This way, I could create a handler for each type and create a resolver which selected the appropriate handler item's type.
+I used dependency injection to inject the handlers into the resolver so that it was easier to add new handlers in the future without having to change any existing code.
+
+I decided to break them up into the following types/categories:
+	StandardItem
+	MaturableItem
+	LegendaryItem
+	BackstagePassItem
+	ConjuredItem
+
+Most of them match the name, but Brie limits the type to more of a product and I wanted them to be able to make use of the logic for other items (as it seems likely). 
+I was going to go with CheeseItem at first, but thought they could apply it to wines and ales (or other maturable things) without changing any of the code if I made the type even more general.
+This will allow them to expand their product range without having to change any of the existing code.
+
+I used principles from domain driven design to make it easier for the restaurant to understand the code and find what they need, despite the added complexity.
+
+I chose to use a settings file to store certain values, as some of the requirements were like "quality decreases 2x a normal item". With this in mind, I wanted to define a baseline of what a normal default increment looks like rather than hard coding values, as it would become easy to accidentally break that requirement by changing hardcoded values without it.
+It also allows someone to make a change without having to recompile everything.
+
+The item types above all inhreited from the original item class so I didn't have to modify the item class as per requirements. I did however, move the file to a different directory / namespace to keep things organised.
+I didn't count this as changing the class, as the namespace is defined before the "public class. . ." and I wasn't changing any contents within those brackets.
+I wasn't 100% sure if that would be breaking the requirement though.
+
+The newly changed code allows adding items very easily, without touching any of the existing logic. They just have to add a new class which implements the handler contract and register it in DI for the resolver to pick it up.
+
+I made the unit testing project follow the same structure as the main project to make it easier to find the relevant tests for each class and to keep things organised.
+I also used the same naming convention for the test classes and methods to make it clear what they were testing.
+By separating it out into different classes, it also makes it easier to read the method names because they don't have to be so long.
+
+Improvements:
+A few things I also noticed which I haven't had chance to implement is that there is no way to add or remove items without changing the code, so I would have liked to implement a database to store the items and their properties, but this would have involved adding an ItemID to the class which I'm not allowed to do as per requirements.
+I could have used entity framework with localdb and created a loop in the GildedRose class to display a menu, allowing them to add and remove items that would persist in a database.
+I suggested localdb because this application will likely be run on a local machine and having a database will remove the need for them to modify an in-code list to add new items.
+
+Also... Formatting the output table may be useful as it's currently difficult to read. I spaced it a bit but this could be improved further by implementing a proper table structure.
+
+Do they actually need to see each iteration or could they just see the latest (or page by page)? I think that's beyond the scope of the exercise though.
