@@ -6,6 +6,7 @@ namespace GildedRoseTests;
 
 public class GildedRoseTests
 {
+    // KRB: I've broken this up into smaller units which test individual requirements for certain functions. This makes it easier to build the dependencies and also to identify what goes wrong if there's an issue.
     //[Fact]
     //public void ExampleTest()
     //{

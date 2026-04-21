@@ -27,11 +27,6 @@ namespace GildedRoseKata.Domain.Inventory.Services
         public void DecreaseSellIn(Item item)
         {
             item.SellIn--;
-
-            if (item.SellIn < 0)
-            {
-                item.SellIn = 0;
-            }
         }
 
         public void DecreaseQuality(Item item, int amount = 1)
