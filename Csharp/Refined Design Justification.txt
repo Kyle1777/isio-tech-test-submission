@@ -25,7 +25,7 @@ Most of them match the name, but Brie limits the type to more of a product and I
 I was going to go with CheeseItem at first, but thought they could apply it to wines and ales (or other maturable things) without changing any of the code if I made the type even more general.
 This will allow them to expand their product range without having to change any of the existing code.
 
-I used principles from domain driven design to make it easier for the restaurant to understand the code and find what they need.
+I used principles from domain driven design to make it easier for the restaurant to understand the code and find what they need, despite the added complexity.
 
 I chose to use a settings file to store certain values, as some of the requirements were like "quality decreases 2x a normal item". With this in mind, I wanted to define a baseline of what a normal default increment looks like rather than hard coding values, as it would become easy to accidentally break that requirement by changing hardcoded values without it.
 It also allows someone to make a change without having to recompile everything.
