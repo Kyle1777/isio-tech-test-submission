@@ -1,15 +1,10 @@
-﻿using GildedRoseKata.Domain.Inventory.Handlers.Interfaces;
+﻿using GildedRoseKata.Domain.Inventory.Handlers;
 using GildedRoseKata.Domain.Inventory.Models;
 using GildedRoseKata.Domain.Inventory.Services;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace GildedRoseKata.Domain.Inventory.Handlers
+namespace GildedRoseTests.Domain.Inventory.Handlers
 {
     // KRB: I've broken this up into smaller units which test individual requirements for certain functions. This makes it easier to build the dependencies and also to identify what goes wrong if there's an issue.
     public class StandardItemHandlerTests

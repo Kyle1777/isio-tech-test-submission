@@ -1,13 +1,10 @@
-﻿using GildedRoseKata.Domain.Inventory.Handlers.Interfaces;
+﻿using GildedRoseKata.Domain.Inventory.Handlers;
 using GildedRoseKata.Domain.Inventory.Models;
 using GildedRoseKata.Domain.Inventory.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Xunit;
 
-namespace GildedRoseKata.Domain.Inventory.Handlers
+namespace GildedRoseTests.Domain.Inventory.Handlers
 {
     public class LegendaryItemHandlerTests
     {
